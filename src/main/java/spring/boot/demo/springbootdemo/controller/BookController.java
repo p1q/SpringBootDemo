@@ -36,8 +36,7 @@ public class BookController {
 
     @PostMapping
     public void add(@Valid @RequestBody BookDto bookDto) {
-        Book book = new Book(bookDto.getTitle(), bookDto.getYear(), bookDto.getPrice());
-        bookService.save(book);
+        bookService.save(bookDto);
     }
 
     @DeleteMapping("/{bookId}")

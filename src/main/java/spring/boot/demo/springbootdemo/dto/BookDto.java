@@ -17,4 +17,11 @@ public class BookDto {
     @NotNull
     @NotEmpty
     private Integer year;
+
+    public BookDto(@NotNull @NotEmpty String title,
+                   @NotNull @NotEmpty Double price, @NotNull @NotEmpty Integer year) {
+        this.title = title;
+        this.price = price;
+        this.year = year;
+    }
 }
