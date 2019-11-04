@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spring.boot.demo.springbootdemo.dto.BookDto;
+import spring.boot.demo.springbootdemo.dto.BookDtoUtil;
 import spring.boot.demo.springbootdemo.entity.Book;
 import spring.boot.demo.springbootdemo.entity.repository.BookRepository;
 
@@ -25,7 +26,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book save(BookDto bookDto) {
-        Book book = new Book(bookDto.getTitle(), bookDto.getYear(), bookDto.getPrice());
+        Book book = BookDtoUtil.getBookFromDto(bookDto);
         return bookRepository.save(book);
     }
 
@@ -33,10 +34,8 @@ public class BookServiceImpl implements BookService {
     public Optional<Book> updateById(Long bookId, BookDto bookDto) {
         Optional<Book> byId = bookRepository.findById(bookId);
         if (byId.isPresent()) {
-            Book book = byId.get();
-            book.setTitle(bookDto.getTitle());
-            book.setYear(bookDto.getYear());
-            book.setPrice(bookDto.getPrice());
+            Book book = BookDtoUtil.getBookFromDto(bookDto);
+            book.setBookId(bookId);
             bookRepository.save(book);
             return Optional.of(book);
         } else {
